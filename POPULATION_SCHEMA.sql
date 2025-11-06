@@ -71,6 +71,17 @@ INSERT INTO MedicosEspecialidades VALUES
 (6, 2);
 
 SELECT * FROM MedicosEspecialidades;
+
+ALTER TABLE MedicosEspecialidades
+ADD UNIQUE (IdMedico, IdEspecialidade);
+
+/*
+ALTER TABLE MedicosEspecialidades
+ADD CONSTRAINT PK_MedicosEspecialidades PRIMARY KEY (IdMedico, IdEspecialidade);
+*/
+
+INSERT INTO MedicosEspecialidades VALUES (1, 5);
+
 --DELETE FROM MedicosEspecialidades;
 
 -- Convenios --
@@ -210,3 +221,8 @@ SELECT
 	e.NomeEspecialidade, e.Descricao
 FROM MedicosEspecialidades me INNER JOIN EspecialidadesMedicas e ON me.IdEspecialidade = e.IdEspecialidade
 INNER JOIN Medicos m ON me.IdMedico = m.IdMedico ORDER BY m.Nome ASC;
+
+SELECT *
+FROM Pacientes p
+JOIN Enderecos e
+ON p.IdEndereco = e.Id
