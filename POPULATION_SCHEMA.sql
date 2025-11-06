@@ -82,6 +82,25 @@ INSERT INTO Convenios VALUES
 
 SELECT * FROM Convenios;
 
+ALTER TABLE Convenios
+ALTER COLUMN SiteConvenio VARCHAR(50);
+
+ALTER TABLE Convenios
+ADD IdEndereco INT
+
+ALTER TABLE Convenios
+ADD FOREIGN KEY (IdEndereco) REFERENCES Enderecos (Id);
+
+INSERT INTO Enderecos (Logradouro, Numero, Bairro, Cidade, CEP) VALUES
+('Avenida das Nações', 1000, 'Centro', 'São Paulo', 03213123)
+
+SELECT * FROM Enderecos;
+
+UPDATE Convenios 
+SET IdEndereco = 6
+WHERE IdConvenio = 4;
+
+
 -- TelefonesConvenios --
 INSERT INTO TelefonesConvenios VALUES
 (55, 16, 33049120, 4),
@@ -162,6 +181,17 @@ INSERT INTO Consultas VALUES
 DELETE FROM Consultas;
 
 SELECT * FROM Consultas;
+
+-- CONSULTAS NO BANCO COM JOIN --
+SELECT 
+	c.NomeConvenio, c.SiteConvenio, c.CNPJ, 
+	tc.CodPais, tc.CodArea, tc.Numero,
+	e.Logradouro, e.Numero, e.Complemento, e.Bairro, e.Cidade
+FROM Convenios c
+LEFT JOIN TelefonesConvenios tc
+ON c.IdConvenio = tc.IdConvenio
+LEFT JOIN Enderecos e
+ON c.IdEndereco = e.Id;
 
 SELECT 
 	c.DataHora,
